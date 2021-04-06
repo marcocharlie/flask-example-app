@@ -24,7 +24,7 @@ class ParseRequest(object):
     def _set_node_id(self, node_id):
         if node_id == None:
             raise Exception('missing node_id in request')
-        return self._node_id
+        self._node_id = node_id
 
     @property
     def node_id(self):
