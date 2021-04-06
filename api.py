@@ -16,12 +16,16 @@ def parse_request():
         raise BadRequest(e)
 
     try:
-        chart_nodes = find_nodes(
-            request_object
+        nodes = find_nodes(
+            request_object.node_id,
+            request_object.language,
+            request_object.search_keyword,
+            request_object.page_num,
+            request_object.page_size
         )
 
         response = Response.create(
-            chart_nodes
+            nodes
         )
     except Exception as e:
         raise Exception(e)
