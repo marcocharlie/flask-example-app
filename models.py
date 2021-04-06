@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class ParseRequest(object):
     _node_id = None
     _language = None
@@ -35,6 +38,8 @@ class ParseRequest(object):
             raise Exception('missing language in request')
         if type(language) != str:
             raise Exception('invalid language provided')
+        if language not in [Languages.English.value, Languages.Italian.value]:
+            raise Exception('only italian or english language available')
         self._language = language
 
     @property
@@ -69,3 +74,8 @@ class ParseRequest(object):
     @property
     def page_size(self):
         return self._page_size
+
+
+class Languages(Enum):
+    English = "english"
+    Italian = "italian"
