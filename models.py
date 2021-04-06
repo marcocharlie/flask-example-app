@@ -33,6 +33,8 @@ class ParseRequest(object):
     def _set_language(self, language):
         if language == None:
             raise Exception('missing language in request')
+        if type(language) != str:
+            raise Exception('invalid language provided')
         self._language = language
 
     @property
