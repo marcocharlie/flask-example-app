@@ -82,7 +82,17 @@ def format_query_results(field_names, results):
     df = pd.DataFrame(data, columns=field_names)
     df = df.loc[:, ~df.columns.duplicated()]
     print(df)
-    index = list(df.columns)[0]
-    df = df.set_index(index)
+    #index = list(df.columns)[0]
+    #df = df.set_index(index)
+
+    # Enrich node data
+    df['childrenCount'] = df.apply(
+        lambda row: get_children_count(df, row.iLeft, row.iRight), axis=1)
 
     return df
+
+
+# Return children count by node
+def get_children_count(df, left, right):
+    children_count = df[(df['iLeft'] > left) & (df['iRight'] < right)].shape[0]
+    return children_count
