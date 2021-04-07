@@ -1,8 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
-#import pandas as pd
+import pandas as pd
 
 
+# Create server connection
 def create_server_connection(host_name, user_name, user_password):
     connection = None
     try:
@@ -18,6 +19,7 @@ def create_server_connection(host_name, user_name, user_password):
     return connection
 
 
+# Create new db
 def create_database(connection, query):
     cursor = connection.cursor()
     try:
@@ -27,6 +29,7 @@ def create_database(connection, query):
         print(f"Error: '{err}'")
 
 
+# Create db connection
 def create_db_connection(host_name, user_name, user_password, db_name):
     connection = None
     try:
@@ -43,6 +46,7 @@ def create_db_connection(host_name, user_name, user_password, db_name):
     return connection
 
 
+# Run query on db for creating tables and insert data
 def execute_query(connection, query):
     cursor = connection.cursor()
     try:
@@ -53,91 +57,32 @@ def execute_query(connection, query):
         print(f"Error: '{err}'")
 
 
+# Run query for reading data
 def read_query(connection, query):
     cursor = connection.cursor()
     result = None
     try:
         cursor.execute(query)
+        field_names = cursor.column_names
         result = cursor.fetchall()
-        return result
+        cursor.close()
+        return field_names, result
     except Error as err:
         print(f"Error: '{err}'")
 
 
-#pw = "martina8"
-#connection = create_server_connection("localhost", "root", pw)
-#create_database_query = "CREATE DATABASE nodes"
-#create_database(connection, create_database_query)
-#
-# create_node_tree_table = """
-# create table node_tree(
-#    idNode integer PRIMARY KEY,
-#    level integer,
-#    iLeft integer,
-#    iRight integer
-# );
-# """
-#
-# create_node_tree_names_table = """
-# create table node_tree_names(
-#    idNode integer,
-#    language varchar(100),
-#    nodeName varchar(100),
-#    FOREIGN KEY (idNode) REFERENCES node_tree (idNode)
-# );
-# """
-#
-# Connect to the Database
-#connection = create_db_connection("localhost", "root", pw, "nodes")
-# Create tables
-#execute_query(connection, create_node_tree_table)
-#execute_query(connection, create_node_tree_names_table)
-#
-# fill tables
-# node_tree_data = """
-# insert into node_tree(idNode, level, iLeft, iRight) values
-#(1, 2, 2, 3),
-#(2, 2, 4, 5),
-#(3, 2, 6, 7),
-#(4, 2, 8, 9),
-#(5, 1, 1, 24),
-#(6, 2, 10, 11),
-#(7, 2, 12, 19),
-#(8, 3, 15, 16),
-#(9, 3, 17, 18),
-#(10, 2, 20, 21),
-#(11, 3, 13, 14),
-#(12, 2, 22, 23);
-# """
-#
-# node_tree_names_data = """
-# insert into node_tree_names(idNode, language, nodeName) values
-#(1, "english", "Marketing"),
-#(1, "italian", "Marketing"),
-#(2, "english", "Helpdesk"),
-#(2, "italian", "Supporto tecnico"),
-#(3, "english", "Managers"),
-#(3, "italian", "Managers"),
-#(4, "english", "Customer Account"),
-#(4, "italian", "Assistenza Cliente"),
-#(5, "english", "Docebo"),
-#(5, "italian", "Docebo"),
-#(6, "english", "Accounting"),
-#(6, "italian", "Amministrazione"),
-#(7, "english", "Sales"),
-#(7, "italian", "Supporto Vendite"),
-#(8, "english", "Italy"),
-#(8, "italian", "Italia"),
-#(9, "english", "Europe"),
-#(9, "italian", "Europa"),
-#(10, "english", "Developers"),
-#(10, "italian", "Sviluppatori"),
-#(11, "english", "North America"),
-#(11, "italian", "Nord America"),
-#(12, "english", "Quality Assurance"),
-#(12, "italian", "Controllo Qualità");
-# """
-#
-#execute_query(connection, node_tree_data)
-#execute_query(connection, node_tree_names_data)
-#
+# Return query results as a pandas DataFrame
+def format_query_results(field_names, results):
+    data = []
+
+    for result in results:
+        result = list(result)
+        data.append(result)
+
+    df = pd.DataFrame(data, columns=field_names)
+    df = df.loc[:, ~df.columns.duplicated()]
+    print(df)
+    index = list(df.columns)[0]
+    df = df.set_index(index)
+
+    return df
