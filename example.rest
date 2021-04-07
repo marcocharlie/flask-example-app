@@ -30,7 +30,6 @@ Content-Type: application/json
     "node_id": 2,
     "language": "italian",
     "page_num": 1,
-    "page_num": 1,
     "page_size": 20
 }
 
