@@ -26,43 +26,27 @@ class ParseRequest(object):
 
     def _set_node_id(self, node_id):
         if node_id == None:
-            raise Exception('missing node_id in request')
+            raise Exception('missing mandatory node_id param')
         self._node_id = node_id
-
-    @property
-    def node_id(self):
-        return self._node_id
 
     def _set_language(self, language):
         if language == None:
-            raise Exception('missing language in request')
+            raise Exception('missing mandatory language param')
         if type(language) != str:
             raise Exception('invalid language provided')
         if language not in [Languages.English.value, Languages.Italian.value]:
             raise Exception('only italian or english language available')
         self._language = language
 
-    @property
-    def language(self):
-        return self._language
-
     def _set_search_keyword(self, search_keyword):
         if type(search_keyword) != str:
             raise Exception('invalid search_keyword provided')
         self._search_keyword = search_keyword.lower()
 
-    @property
-    def search_keyword(self):
-        return self._search_keyword
-
     def _set_page_num(self, page_num):
         if type(page_num) != int or page_num < 0:
             raise Exception('invalid page_num provided')
         self._page_num = page_num
-
-    @property
-    def page_num(self):
-        return self._page_num
 
     def _set_page_size(self, page_size):
         if type(page_size) != int:
@@ -70,6 +54,22 @@ class ParseRequest(object):
         if page_size <= 0 or page_size > 1000:
             raise Exception('page_size must be a value between 0 and 1000')
         self._page_size = page_size
+
+    @property
+    def node_id(self):
+        return self._node_id
+
+    @property
+    def language(self):
+        return self._language
+
+    @property
+    def search_keyword(self):
+        return self._search_keyword
+
+    @property
+    def page_num(self):
+        return self._page_num
 
     @property
     def page_size(self):
