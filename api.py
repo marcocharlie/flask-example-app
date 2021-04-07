@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify, abort, escape
 from request import *
 from node_finder import find_nodes
 from response import Response
-from json import dumps
 
 
 app = Flask(__name__)
