@@ -5,10 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: File corrente",
+            "name": "Flask App",
             "type": "python",
             "request": "launch",
             "program": "api.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Setup",
+            "type": "python",
+            "request": "launch",
+            "program": "setup.py",
             "console": "integratedTerminal"
         }
     ]
