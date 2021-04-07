@@ -24,17 +24,17 @@ class Node(object):
 
     def _set_node_id(self, node_id):
         if type(node_id) != int:
-            raise Exception('invalid node id provided')
+            raise Exception('Invalid node id provided')
         self._node_id = node_id
 
     def _set_name(self, name):
         if type(name) != str:
-            raise Exception('invalid node name provided')
+            raise Exception('Invalid node name provided')
         self._name = name
 
     def _set_children_count(self, children_count):
         if type(children_count) != int:
-            raise Exception('invalid node children count provided')
+            raise Exception('Invalid node children count provided')
         self._children_count = children_count
 
     def serialize(self):

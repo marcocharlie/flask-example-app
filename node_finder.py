@@ -15,8 +15,6 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
 
     # Search for primary node data
     primary_node_data = get_primary_node(connection, node_id)
-    if len(primary_node_data) == 0:
-        raise Exception("Invalid node id provided")
 
     # Keep primary node data for children search
     left = primary_node_data[0]["iLeft"]
@@ -56,6 +54,9 @@ def get_primary_node(connection, node_id):
         """ % ("node_tree", node_id)
 
     field_names, results = read_query(connection, query)
+    if len(results) == 0:
+        raise Exception("Invalid node id provided")
+
     df = format_query_results(field_names, results)
     data = df.to_dict(orient='records')
 
@@ -72,6 +73,8 @@ def format_query_results(field_names, results):
 
     df = pd.DataFrame(data, columns=field_names)
     df = df.loc[:, ~df.columns.duplicated()]
+    if df.shape[0] == 0:
+        raise Exception("No children nodes available for given node id")
 
     # Enrich node data
     df['childrenCount'] = df.apply(
