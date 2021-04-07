@@ -27,10 +27,12 @@ GET http://localhost:5000/api/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "node_id": 2,
+    "node_id": 7,
     "language": "italian",
     "page_num": 1,
-    "pag
+    "page_num": 1,
+    "page_size": 20
+}
 
 ###
 
