@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, abort, escape
-from request import *
-from node_finder import find_nodes
-from response import Response
+from app.request import *
+from app.node_finder import find_nodes
+from app.response import Response
 
 
 app = Flask(__name__)
