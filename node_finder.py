@@ -31,16 +31,13 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         WHERE (node_tree.iLeft > %s) AND (node_tree.iRight < %s) AND (node_tree_names.language = '%s');
         """ % (left, right, language)
 
-    # Add filter on node name (if provided)
-    if search_keyword != None:
-        filter_keyword = "%"+search_keyword+"%"
-        query = query.replace(";", "")
-        query = "%s AND (node_tree_names.nodeName LIKE '%s');" % (
-            query, filter_keyword)
-
     # Format and enrich raw data
     field_names, results = read_query(connection, query)
     df = format_query_results(field_names, results)
+
+    # Add filter on node name (if provided)
+    if search_keyword != None:
+        df = df[df['nodeName'].str.contains(search_keyword, case=False)]
 
     connection.close()
 
