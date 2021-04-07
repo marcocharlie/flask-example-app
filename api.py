@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, abort, escape
-from models import *
-from werkzeug.exceptions import BadRequest
+from request import *
 from node_finder import find_nodes
-#from response import Response
+from response import Response
+from json import dumps
+
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 app_prefix = '/api'
 
 
@@ -13,7 +15,7 @@ def parse_request():
     try:
         request_object = ParseRequest(request.get_json(request.json))
     except Exception as e:
-        raise BadRequest(e)
+        return jsonify({'nodes': [], 'error': str(e)})
 
     try:
         nodes = find_nodes(
@@ -23,14 +25,11 @@ def parse_request():
             request_object.page_num,
             request_object.page_size
         )
-
-        response = Response.create(
-            nodes
-        )
+        response = Response(nodes)
     except Exception as e:
-        raise Exception(e)
+        return jsonify({'nodes': [], 'error': str(e)})
 
-    return jsonify({'response': response.__dict__})
+    return jsonify({'nodes': response._nodes})
 
 
 if __name__ == '__main__':
