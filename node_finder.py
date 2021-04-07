@@ -1,17 +1,17 @@
-from data.utils import create_db_connection, read_query, format_query_results
-from os import getenv
+from data.utils import create_db_connection, read_query
+from config import connection_config
+import pandas as pd
 
 
 # Return nodes data from DB
 def find_nodes(node_id, language, search_keyword, page_num, page_size):
 
-    db_address = getenv("DB_ADDRESS")
-    db_user = getenv("DB_USER")
-    db_pwd = getenv("DB_PWD")
-    db_name = getenv("DB_NAME")
+    # get connection config
+    config = connection_config()
 
     # Connect to the Database
-    connection = create_db_connection(db_address, db_user, db_pwd, db_name)
+    connection = create_db_connection(
+        config['host'], config['user'], config['passwd'], config['db'])
 
     # Search for primary node data
     primary_node_data = get_node(connection, node_id)

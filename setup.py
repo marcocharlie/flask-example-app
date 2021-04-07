@@ -1,13 +1,8 @@
 from data.utils import *
-from os import getenv
+from config import connection_config
 
 
 def main():
-
-    db_address = getenv("DB_ADDRESS")
-    db_user = getenv("DB_USER")
-    db_pwd = getenv("DB_PWD")
-    db_name = getenv("DB_NAME")
 
     create_database_query = "CREATE DATABASE nodes"
 
@@ -73,14 +68,19 @@ def main():
     (12, "italian", "Controllo Qualità");
     """
 
+    # get connection config
+    config = connection_config()
+
     # Connect to mySql server
-    connection = create_server_connection(db_address, db_user, db_pwd)
+    connection = create_server_connection(
+        config['host'], config['user'], config['passwd'])
 
     # Create Database
     create_database(connection, create_database_query)
 
     # Connect to the Database
-    connection = create_db_connection(db_address, db_user, db_pwd, db_name)
+    connection = create_db_connection(
+        config['host'], config['user'], config['passwd'], config['db'])
 
     # Create tables
     execute_query(connection, create_node_tree_table)
