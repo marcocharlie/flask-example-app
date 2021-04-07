@@ -29,3 +29,7 @@ Execute the application
 ```bash
 python api.py
 ```
+
+### Testing
+
+A simple rest file is provided.
