@@ -5,16 +5,16 @@
 
 -- Table node_tree
 create table node_tree(
-    idNode integer PRIMARY KEY,
-    level integer,
-    iLeft integer,
-    iRight integer
+    idNode integer PRIMARY KEY NOT NULL,
+    level integer NOT NULL,
+    iLeft integer NOT NULL,
+    iRight integer NOT NULL
 );
 
 -- Table node_tree_names (idNode is Foreign Key referencing node_tree.idNode)
 create table node_tree_names(
-    idNode integer,
-    language varchar(100),
-    nodeName varchar(100),
+    idNode integer NOT NULL,
+    language varchar(100) NOT NULL,
+    nodeName varchar(100) NOT NULL,
     FOREIGN KEY (idNode) REFERENCES node_tree (idNode)
 );
