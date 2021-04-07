@@ -14,7 +14,7 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         config['host'], config['user'], config['passwd'], config['db'])
 
     # Search for primary node data
-    primary_node_data = get_node(connection, node_id)
+    primary_node_data = get_primary_node(connection, node_id)
     if len(primary_node_data) == 0:
         raise Exception("Invalid node id provided")
 
@@ -31,21 +31,23 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         WHERE (node_tree.iLeft > %s) AND (node_tree.iRight < %s) AND (node_tree_names.language = '%s');
         """ % (left, right, language)
 
-    # Format and enrich raw data
     field_names, results = read_query(connection, query)
+    connection.close()
+
+    # Format and enrich raw data
     df = format_query_results(field_names, results)
 
     # Add filter on node name (if provided)
     if search_keyword != None:
         df = df[df['nodeName'].str.contains(search_keyword, case=False)]
 
-    connection.close()
+    data = df.to_dict(orient='records')
 
-    return df.to_dict(orient='records')
+    return data
 
 
 # Return primary node data
-def get_node(connection, node_id):
+def get_primary_node(connection, node_id):
 
     query = """
         SELECT *
@@ -55,8 +57,9 @@ def get_node(connection, node_id):
 
     field_names, results = read_query(connection, query)
     df = format_query_results(field_names, results)
+    data = df.to_dict(orient='records')
 
-    return df.to_dict(orient='records')
+    return data
 
 
 # Return query results as a pandas DataFrame
@@ -69,13 +72,12 @@ def format_query_results(field_names, results):
 
     df = pd.DataFrame(data, columns=field_names)
     df = df.loc[:, ~df.columns.duplicated()]
-    print(df)
-    #index = list(df.columns)[0]
-    #df = df.set_index(index)
 
     # Enrich node data
     df['childrenCount'] = df.apply(
         lambda row: get_children_count(df, row.iLeft, row.iRight), axis=1)
+
+    print(df)
 
     return df
 
