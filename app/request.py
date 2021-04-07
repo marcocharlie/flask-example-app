@@ -12,7 +12,7 @@ class ParseRequest(object):
         if not data:
             raise Exception('Empty request')
 
-        # required fields
+        # mandatory fields
         self._set_node_id(data['node_id'])
         self._set_language(data['language'])
 
@@ -27,6 +27,8 @@ class ParseRequest(object):
     def _set_node_id(self, node_id):
         if node_id == None:
             raise Exception('Missing mandatory node_id param')
+        if type(node) != int:
+            raise Exception('Invalid node_id param provided')
         self._node_id = node_id
 
     def _set_language(self, language):
@@ -35,7 +37,7 @@ class ParseRequest(object):
         if type(language) != str:
             raise Exception('Invalid language param provided')
         if language not in [Languages.English.value, Languages.Italian.value]:
-            raise Exception('Only italian or english language available')
+            raise Exception('Only italian and english languages available')
         self._language = language
 
     def _set_search_keyword(self, search_keyword):
