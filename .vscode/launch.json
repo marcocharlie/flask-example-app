@@ -12,10 +12,10 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Setup",
+            "name": "Database Setup",
             "type": "python",
             "request": "launch",
-            "program": "setup.py",
+            "program": "database_setup.py",
             "console": "integratedTerminal"
         }
     ]

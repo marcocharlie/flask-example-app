@@ -20,11 +20,11 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-### Setup
+### Database Setup
 
 Initialize mySql database and tables launching
 ```bash
-python setup.py
+python database_setup.py
 ```
 The command will create `nodes` database, `node_tree` and `node_tree_names` tables.
 
