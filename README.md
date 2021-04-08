@@ -16,6 +16,7 @@ Install requirements via PIP
 
 ```bash
 virtualenv .venv
+source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
@@ -35,6 +36,18 @@ Execute the application
 python api.py
 ```
 
-### Testing
+### Available endpoints
 
-A simple rest file is provided.
+The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and returns a list of children nodes from an organizational chart for the given node.
+
+#### Parameters:
+
+- `node_id` (integer, required): the unique ID of the selected node.
+- `language` (enum, required): language identifier. Possible values: "english", "italian".
+- `search_keyword` (string, optional): a search term used to filter results. If provided, restricts the results to "all children nodes under node_id whose nodeName in the given language contains search_keyword (case insensitive)".
+- `page_num` (integer, optional): the 0-based identifier of the page to retrieve. If not provided, defaults to “0”.
+- `page_size` (integer, optional): the size of the page to retrieve, ranging from 0 to 1000. If not provided, defaults to “100”.
+
+### Examples
+
+A simple REST file is provided as example. They are meant to be used on VSCode REST Client plugin.
