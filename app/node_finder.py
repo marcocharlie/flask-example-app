@@ -1,11 +1,10 @@
 from data.utils import create_db_connection, read_query
 from config import db_connection_config
-import pandas as pd
-from math import ceil
+from .node_formatter import format_query_results
 
 
 # Return nodes data from DB
-def find_nodes(node_id, language, search_keyword, page_num, page_size):
+def find_nodes(node_id, language):
 
     # get connection config
     db_config = db_connection_config()
@@ -14,12 +13,12 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
     connection = create_db_connection(
         db_config['host'], db_config['user'], db_config['passwd'], db_config['db'])
 
-    # Search for primary node data
-    primary_node_data = get_primary_node(connection, node_id)
+    # Search for parent node data
+    parent_node_data = get_parent_node(connection, node_id)
 
-    # Keep primary node data for children search
-    left = primary_node_data[0]["iLeft"]
-    right = primary_node_data[0]["iRight"]
+    # Keep parent node data for children search
+    left = parent_node_data[0]["iLeft"]
+    right = parent_node_data[0]["iRight"]
 
     # Query database
     query = """
@@ -31,26 +30,13 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         """ % (left, right, language)
 
     field_names, results = read_query(connection, query)
-    connection.close()
+    connection.close()   
 
-    # Format and enrich raw data
-    df = format_query_results(field_names, results)
-
-    # Add filter on node name (if provided)
-    if search_keyword != None:
-        df = df[df['nodeName'].str.contains(search_keyword, case=False)]
-
-    # Paginate dataframe
-    paginated_df = paginate_dataframe(df, page_num, page_size)
-
-    # Turn dataframe to list of objects
-    data = paginated_df.to_dict(orient='records')
-
-    return data
+    return field_names, results
 
 
-# Return primary node data
-def get_primary_node(connection, node_id):
+# Return parent node data
+def get_parent_node(connection, node_id):
 
     query = """
         SELECT *
@@ -66,50 +52,3 @@ def get_primary_node(connection, node_id):
     data = df.to_dict(orient='records')
 
     return data
-
-
-# Return query results as a pandas DataFrame
-def format_query_results(field_names, results):
-    data = []
-
-    for result in results:
-        result = list(result)
-        data.append(result)
-
-    df = pd.DataFrame(data, columns=field_names)
-    df = df.loc[:, ~df.columns.duplicated()]
-    if df.shape[0] == 0:
-        raise Exception("No children nodes available for given node id")
-
-    # Enrich node data
-    df['childrenCount'] = df.apply(
-        lambda row: get_children_count(df, row.iLeft, row.iRight), axis=1)
-
-    return df
-
-
-# Return children count by node
-def get_children_count(df, left, right):
-    children_count = df[(df['iLeft'] > left) & (df['iRight'] < right)].shape[0]
-    return children_count
-
-
-# Return paginated dataframe
-def paginate_dataframe(df, page_num, page_size):
-    total = df.shape[0]
-    page_count = ceil(total/page_size)
-
-    if page_count == 1:
-        if page_num == 0:
-            return df
-        elif page_num > 0:
-            raise Exception(
-                "No other nodes available for the given parameters")
-
-    # split the dataframe into separate tables
-    rows = np.arange(len(df))
-    dfs = [sub_df for _, sub_df in df.groupby(rows // page_size)]
-    if len(dfs) <= page_num:
-        raise Exception("No other nodes available for the given parameters")
-
-    return dfs[page_num]
