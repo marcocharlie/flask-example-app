@@ -3,10 +3,10 @@
 -- flattened as per the Nested Set model.
 
 -- Database
-CREATE DATABASE [IF NOT EXISTS] nodes
+CREATE DATABASE IF NOT EXISTS nodes
 
 -- Table node_tree
-CREATE TABLE [IF NOT EXISTS] node_tree(
+CREATE TABLE IF NOT EXISTS node_tree(
     idNode integer PRIMARY KEY NOT NULL,
     level integer NOT NULL,
     iLeft integer NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE [IF NOT EXISTS] node_tree(
 );
 
 -- Table node_tree_names (idNode is Foreign Key referencing node_tree.idNode)
-CREATE TABLE [IF NOT EXISTS] node_tree_names(
+CREATE TABLE IF NOT EXISTS node_tree_names(
     idNode integer NOT NULL,
     language varchar(100) NOT NULL,
     nodeName varchar(100) NOT NULL,

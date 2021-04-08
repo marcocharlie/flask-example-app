@@ -4,10 +4,10 @@ from config import connection_config
 
 def main():
 
-    create_database_query = "CREATE DATABASE [IF NOT EXISTS] nodes"
+    create_database_query = "CREATE DATABASE IF NOT EXISTS nodes"
 
     create_node_tree_table = """
-    CREATE TABLE [IF NOT EXISTS] node_tree(
+    CREATE TABLE IF NOT EXISTS node_tree(
         idNode integer PRIMARY KEY NOT NULL,
         level integer NOT NULL,
         iLeft integer NOT NULL,
@@ -16,7 +16,7 @@ def main():
     """
 
     create_node_tree_names_table = """
-    CREATE TABLE [IF NOT EXISTS] node_tree_names(
+    CREATE TABLE IF NOT EXISTS node_tree_names(
         idNode integer NOT NULL,
         language varchar(100) NOT NULL,
         nodeName varchar(100) NOT NULL,
@@ -70,6 +70,7 @@ def main():
 
     # get connection config
     config = connection_config()
+    print(config)
 
     # Connect to mySql server
     connection = create_server_connection(
