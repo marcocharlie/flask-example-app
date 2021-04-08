@@ -28,7 +28,6 @@ def parse_request():
     except Exception as e:
         return jsonify({'nodes': [], 'error': str(e)})
 
-    return jsonify({'nodes': response._nodes})
     return jsonify({'nodes': response.nodes})
 
 
