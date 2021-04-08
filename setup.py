@@ -1,5 +1,5 @@
 from data.utils import *
-from config import connection_config
+from config import db_connection_config
 
 
 def main():
@@ -69,7 +69,7 @@ def main():
     """
 
     # get connection config
-    config = connection_config()
+    config = db_connection_config()
     print(config)
 
     # Connect to mySql server

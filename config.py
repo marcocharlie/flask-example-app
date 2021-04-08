@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from os import environ
 
 
-def connection_config():
+def db_connection_config():
     load_dotenv()
 
     return {

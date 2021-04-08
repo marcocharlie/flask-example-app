@@ -1,5 +1,5 @@
 from data.utils import create_db_connection, read_query
-from config import connection_config
+from config import db_connection_config
 import pandas as pd
 
 
@@ -7,7 +7,7 @@ import pandas as pd
 def find_nodes(node_id, language, search_keyword, page_num, page_size):
 
     # get connection config
-    config = connection_config()
+    config = db_connection_config()
 
     # Connect to the Database
     connection = create_db_connection(
