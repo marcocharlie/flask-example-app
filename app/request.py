@@ -27,7 +27,7 @@ class ParseRequest(object):
     def _set_node_id(self, node_id):
         if node_id == None:
             raise Exception('Missing mandatory node_id param')
-        if type(node) != int:
+        if type(node_id) != int:
             raise Exception('Invalid node_id param provided')
         self._node_id = node_id
 
