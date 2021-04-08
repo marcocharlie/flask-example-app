@@ -10,7 +10,7 @@ The application is structured as follows:
 - A package for database initializing
 - The HTTP api route is provided by Flask, which wraps everything
 
-### Usage
+## Usage
 
 ### Requirements
 
