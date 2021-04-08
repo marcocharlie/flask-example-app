@@ -36,7 +36,7 @@ class ParseRequest(object):
             raise Exception('Missing mandatory language param')
         if type(language) != str:
             raise Exception('Invalid language param provided')
-        if language not in [Languages.English.value, Languages.Italian.value]:
+        if Language(language) not in [Language.English, Language.Italian]:
             raise Exception('Only italian and english languages available')
         self._language = language
 
@@ -79,6 +79,6 @@ class ParseRequest(object):
         return self._page_size
 
 
-class Languages(Enum):
+class Language(Enum):
     English = "english"
     Italian = "italian"
