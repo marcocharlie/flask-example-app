@@ -1,5 +1,5 @@
 from data.utils import create_db_connection, read_query
-from config import db_connection_config
+from data.config import db_connection_config
 from .node_formatter import format_query_results
 
 

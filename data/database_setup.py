@@ -1,4 +1,4 @@
-from data.utils import *
+from utils import *
 from config import db_connection_config
 
 
