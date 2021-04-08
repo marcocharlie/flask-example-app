@@ -29,6 +29,7 @@ def parse_request():
         return jsonify({'nodes': [], 'error': str(e)})
 
     return jsonify({'nodes': response._nodes})
+    return jsonify({'nodes': response.nodes})
 
 
 if __name__ == '__main__':
