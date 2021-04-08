@@ -50,4 +50,4 @@ The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and 
 
 ### Examples
 
-The [example](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides REST examples. They are meant to be used on VSCode REST Client plugin.
+The [example](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides a REST file as example. It is meant to be used on VSCode REST Client plugin.
