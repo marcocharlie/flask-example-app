@@ -4,10 +4,10 @@ from config import connection_config
 
 def main():
 
-    create_database_query = "CREATE DATABASE nodes"
+    create_database_query = "CREATE DATABASE [IF NOT EXISTS] nodes"
 
     create_node_tree_table = """
-    create table node_tree(
+    CREATE TABLE [IF NOT EXISTS] node_tree(
         idNode integer PRIMARY KEY NOT NULL,
         level integer NOT NULL,
         iLeft integer NOT NULL,
@@ -16,7 +16,7 @@ def main():
     """
 
     create_node_tree_names_table = """
-    create table node_tree_names(
+    CREATE TABLE [IF NOT EXISTS] node_tree_names(
         idNode integer NOT NULL,
         language varchar(100) NOT NULL,
         nodeName varchar(100) NOT NULL,
@@ -25,7 +25,7 @@ def main():
     """
 
     node_tree_data = """
-    insert into node_tree(idNode, level, iLeft, iRight) values
+    insert ignore into node_tree(idNode, level, iLeft, iRight) values
     (1, 2, 2, 3),
     (2, 2, 4, 5),
     (3, 2, 6, 7),
@@ -41,7 +41,7 @@ def main():
     """
 
     node_tree_names_data = """
-    insert into node_tree_names(idNode, language, nodeName) values
+    insert ignore into node_tree_names(idNode, language, nodeName) values
     (1, "english", "Marketing"),
     (1, "italian", "Marketing"),
     (2, "english", "Helpdesk"),

@@ -25,6 +25,7 @@ Initialize mySql database and tables launching
 ```bash
 python setup.py
 ```
+The command will create `nodes` database, `node_tree` and `node_tree_names` tables.
 
 ### Run App
 

@@ -1,5 +1,5 @@
 -- Data node_tree
-insert into node_tree(idNode, level, iLeft, iRight) values
+insert ignore into node_tree(idNode, level, iLeft, iRight) values
 (1, 2, 2, 3),
 (2, 2, 4, 5),
 (3, 2, 6, 7),
@@ -14,7 +14,7 @@ insert into node_tree(idNode, level, iLeft, iRight) values
 (12, 2, 22, 23);
 
 -- Data node_tree_names
-insert into node_tree_names(idNode, language, nodeName) values
+insert ignore into node_tree_names(idNode, language, nodeName) values
 (1, "english", "Marketing"),
 (1, "italian", "Marketing"),
 (2, "english", "Helpdesk"),
