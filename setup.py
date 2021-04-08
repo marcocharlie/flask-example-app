@@ -69,19 +69,18 @@ def main():
     """
 
     # get connection config
-    config = db_connection_config()
-    print(config)
+    db_config = db_connection_config()
 
     # Connect to mySql server
     connection = create_server_connection(
-        config['host'], config['user'], config['passwd'])
+        db_config['host'], db_config['user'], db_config['passwd'])
 
     # Create Database
     create_database(connection, create_database_query)
 
     # Connect to the Database
     connection = create_db_connection(
-        config['host'], config['user'], config['passwd'], config['db'])
+        db_config['host'], db_config['user'], db_config['passwd'], db_config['db'])
 
     # Create tables
     execute_query(connection, create_node_tree_table)

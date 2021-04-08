@@ -7,11 +7,11 @@ import pandas as pd
 def find_nodes(node_id, language, search_keyword, page_num, page_size):
 
     # get connection config
-    config = db_connection_config()
+    db_config = db_connection_config()
 
     # Connect to the Database
     connection = create_db_connection(
-        config['host'], config['user'], config['passwd'], config['db'])
+        db_config['host'], db_config['user'], db_config['passwd'], db_config['db'])
 
     # Search for primary node data
     primary_node_data = get_primary_node(connection, node_id)
