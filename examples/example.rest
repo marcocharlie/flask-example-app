@@ -5,7 +5,7 @@ Content-Type: application/json
     "node_id": 5,
     "language": "italian",
     "page_num": 1,
-    "page_size": 20
+    "page_size": 10
 }
 
 ####
