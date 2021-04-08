@@ -80,8 +80,6 @@ def format_query_results(field_names, results):
     df['childrenCount'] = df.apply(
         lambda row: get_children_count(df, row.iLeft, row.iRight), axis=1)
 
-    print(df)
-
     return df
 
 
