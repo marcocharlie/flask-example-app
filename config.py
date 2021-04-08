@@ -6,9 +6,9 @@ def connection_config():
     load_dotenv()
 
     return {
-        'host': environ.get("DB_HOST"),
-        'port': environ.get("DB_PORT"),
-        'user': environ.get("DB_USER"),
-        'passwd': environ.get("DB_PWD"),
-        'db': environ.get("DB_NAME")
+        'host': environ.get("DB_HOST"),  # localhost
+        'port': environ.get("DB_PORT"),  # 3306
+        'user': environ.get("DB_USER"),  # root
+        'passwd': environ.get("DB_PWD"),  # secret mysql password
+        'db': environ.get("DB_NAME")  # nodes
     }
