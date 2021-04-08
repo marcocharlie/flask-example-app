@@ -36,9 +36,7 @@ class ParseRequest(object):
             raise Exception('Missing mandatory language param')
         if type(language) != str:
             raise Exception('Invalid language param provided')
-        if Language(language) not in [Language.English, Language.Italian]:
-            raise Exception('Only italian and english languages available')
-        self._language = language
+        self._language = Language(language)
 
     def _set_search_keyword(self, search_keyword):
         if type(search_keyword) != str:
@@ -80,5 +78,7 @@ class ParseRequest(object):
 
 
 class Language(Enum):
+    def __str__(self):
+        return str(self.value)
     English = "english"
     Italian = "italian"
