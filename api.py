@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, abort, escape
-from app.request import *
+from app.request import ParseRequest
 from app.node_finder import find_nodes
 from app.response import Response
 
