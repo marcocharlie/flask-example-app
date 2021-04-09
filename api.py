@@ -12,30 +12,22 @@ app_prefix = '/api'
 
 @app.route(app_prefix + '/', methods=['GET'])
 def parse_request():
-    # Validate request
     try:
+        # Validate request
         request_object = ParseRequest(request.get_json(request.json))
-    except Exception as e:
-        return jsonify({'nodes': [], 'error': str(e)})
-    
-    # Query on database
-    try:
+        # Query on database
         field_namess, nodes = find_nodes(
             request_object.node_id,
             request_object.language
         )
-    except Exception as e:
-        return jsonify({'nodes': [], 'error': str(e)})
-    
-    # Format response
-    try:
+        # Format response
         formatted_nodes = formatter(
-            field_namess, 
-            nodes, 
-            request_object.search_keyword, 
-            request_object.page_num, 
+            field_namess,
+            nodes,
+            request_object.search_keyword,
+            request_object.page_num,
             request_object.page_size
-            )
+        )
         response = Response(formatted_nodes)
         return jsonify({'nodes': response.nodes})
     except Exception as e:
