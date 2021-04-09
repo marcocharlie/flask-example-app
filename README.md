@@ -6,10 +6,10 @@ A flask app to retrieve organizational chart nodes from a mySQL database.
 
 The application is structured as follows:
 
-- An internal app which does the dirty work
-- A package for database configuration and manipulation
-- A setup for database creation
-- A Flask HTTP api route
+- An internal code which does the dirty work
+- A package for database configuration and querying
+- A setup script for database creation
+- A Flask HTTP api route provides a JSON response
 
 ## Usage
 
@@ -19,10 +19,9 @@ You can run the application in a Python 3.7 environment.
 
 To execute the program, you’ll need to have :
 - mySQL installed on your machine
-- a mySQL library (e.g. “mysql-connector-python”) to query the database
-- a text editor such as Visual Studio Code.
+- a text editor such as Visual Studio Code
 
-**N.B.** You need to insert your mysql credentials into config.
+**N.B.** You need to insert your mySQL credentials into [config](https://github.com/marcocharlie/flask-example-app/tree/master/database/config.py).
 
 ### Python env
 
@@ -36,18 +35,17 @@ pip3 install -r requirements.txt
 
 ### Database Setup
 
-Initialize mySql database and tables launching
+Create mySql database and tables launching
 ```bash
-python database_setup.py
+python3 database_setup.py
 ```
-The command will create `nodes` database, `node_tree` and `node_tree_names` tables.
 
 ### Run App
 
 Execute the application
 
 ```bash
-python api.py
+python3 api.py
 ```
 
 ### Available endpoints
@@ -64,4 +62,4 @@ The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and 
 
 ### Examples
 
-The [example](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides a REST file as example. It is meant to be used on VSCode REST Client plugin.
+The [examples](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides a REST file as example. It is meant to be used on VSCode REST Client plugin.
