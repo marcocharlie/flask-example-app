@@ -1,12 +1,10 @@
-from utils import *
-from config import db_connection_config
-
+from database.database import Database
 
 def main():
 
     create_database_query = "CREATE DATABASE IF NOT EXISTS nodes"
 
-    create_node_tree_table = """
+    create_node_tree_table_query = """
     CREATE TABLE IF NOT EXISTS node_tree(
         idNode integer PRIMARY KEY NOT NULL,
         level integer NOT NULL,
@@ -15,7 +13,7 @@ def main():
     );
     """
 
-    create_node_tree_names_table = """
+    create_node_tree_names_table_query = """
     CREATE TABLE IF NOT EXISTS node_tree_names(
         idNode integer NOT NULL,
         language varchar(100) NOT NULL,
@@ -68,27 +66,22 @@ def main():
     (12, "italian", "Controllo Qualità");
     """
 
-    # get connection config
-    db_config = db_connection_config()
+    # Init database
+    db = Database()
 
     # Connect to mySql server
-    connection = create_server_connection(
-        db_config['host'], db_config['user'], db_config['passwd'])
+    connection = db.create_connection()
 
     # Create Database
-    create_database(connection, create_database_query)
-
-    # Connect to the Database
-    connection = create_db_connection(
-        db_config['host'], db_config['user'], db_config['passwd'], db_config['db'])
+    db.create_database(create_database_query)
 
     # Create tables
-    execute_query(connection, create_node_tree_table)
-    execute_query(connection, create_node_tree_names_table)
+    db.execute_query(create_node_tree_table_query)
+    db.execute_query(create_node_tree_names_table_query)
 
     # Insert data into tables
-    execute_query(connection, node_tree_data)
-    execute_query(connection, node_tree_names_data)
+    db.execute_query(node_tree_data)
+    db.execute_query(node_tree_names_data)
 
 
 if __name__ == "__main__":
