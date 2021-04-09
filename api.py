@@ -29,7 +29,13 @@ def parse_request():
     
     # Format response
     try:
-        formatted_nodes = formatter(field_namess, nodes, request_object.search_keyword, request_object.page_num, request_object.page_size)
+        formatted_nodes = formatter(
+            field_namess, 
+            nodes, 
+            request_object.search_keyword, 
+            request_object.page_num, 
+            request_object.page_size
+            )
         response = Response(formatted_nodes)
         return jsonify({'nodes': response.nodes})
     except Exception as e:
