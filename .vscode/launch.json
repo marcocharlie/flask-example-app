@@ -15,7 +15,7 @@
             "name": "Database Setup",
             "type": "python",
             "request": "launch",
-            "program": "./data/database_setup.py",
+            "program": "database_setup.py",
             "console": "integratedTerminal"
         }
     ]
