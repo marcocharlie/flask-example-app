@@ -7,18 +7,22 @@ A flask app to retrieve organizational chart nodes from a mySQL database.
 The application is structured as follows:
 
 - An internal app which does the dirty work
-- A package for database initializing
-- The HTTP api route is provided by Flask, which wraps everything
+- A package for database configuration and manipulation
+- A setup for database creation
+- A Flask HTTP api route
 
 ## Usage
 
 ### Requirements
 
 You can run the application in a Python 3.7 environment.
+
 To execute the program, you’ll need to have :
 - mySQL installed on your machine
 - a mySQL library (e.g. “mysql-connector-python”) to query the database
 - a text editor such as Visual Studio Code.
+
+**N.B.** You need to insert your mysql credentials into config.
 
 ### Python env
 
