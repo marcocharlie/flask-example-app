@@ -1,20 +1,18 @@
-from data.utils import create_db_connection, read_query
-from data.config import db_connection_config
+from database.database import Database
 from .node_formatter import format_query_results
 
 
 # Return nodes data from DB
 def find_nodes(node_id, language):
 
-    # get connection config
-    db_config = db_connection_config()
+    # Init database
+    db = Database()
 
     # Connect to the Database
-    connection = create_db_connection(
-        db_config['host'], db_config['user'], db_config['passwd'], db_config['db'])
+    connection = db.create_connection()
 
     # Search for parent node data
-    parent_node_data = get_parent_node(connection, node_id)
+    parent_node_data = get_parent_node(db, node_id)
 
     # Keep parent node data for children search
     left = parent_node_data[0]["iLeft"]
@@ -29,14 +27,14 @@ def find_nodes(node_id, language):
         WHERE (node_tree.iLeft > %s) AND (node_tree.iRight < %s) AND (node_tree_names.language = '%s');
         """ % (left, right, language)
 
-    field_names, results = read_query(connection, query)
+    field_names, results = db.read_query(query)
     connection.close()   
 
     return field_names, results
 
 
 # Return parent node data
-def get_parent_node(connection, node_id):
+def get_parent_node(db, node_id):
 
     query = """
         SELECT *
@@ -44,7 +42,7 @@ def get_parent_node(connection, node_id):
         WHERE idNode = %s;
         """ % ("node_tree", node_id)
 
-    field_names, results = read_query(connection, query)
+    field_names, results = db.read_query(query)
     if len(results) == 0:
         raise Exception("Invalid node id provided")
 
