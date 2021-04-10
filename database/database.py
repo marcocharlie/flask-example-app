@@ -26,8 +26,8 @@ class Database():
 
         return self.connection
 
-
     # Create new db
+
     def create_database(self, query):
         cursor = self.connection.cursor()
         try:
@@ -36,8 +36,8 @@ class Database():
         except Error as err:
             print(f"Error: '{err}'")
 
-
     # Run query on db for creating tables and insert data
+
     def execute_query(self, query):
         cursor = self.connection.cursor()
         try:
@@ -47,8 +47,8 @@ class Database():
         except Error as err:
             print(f"Error: '{err}'")
 
-
     # Run query for reading data
+
     def read_query(self, query):
         cursor = self.connection.cursor()
         result = None
