@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from app.request import ValidateNodeRequest
 from app.node_finder import find_nodes
-from app.node_formatter import formatter
 from app.response import NodesResponse
 
 
@@ -16,19 +15,15 @@ def parse_request():
         # Validate request
         request_object = ValidateNodeRequest(request.get_json(request.json))
         # Query on database
-        field_namess, nodes = find_nodes(
+        nodes = find_nodes(
             request_object.node_id,
-            request_object.language
-        )
-        # Format response
-        formatted_nodes = formatter(
-            field_namess,
-            nodes,
+            request_object.language,
             request_object.search_keyword,
             request_object.page_num,
             request_object.page_size
         )
-        response = NodesResponse(formatted_nodes)
+        # Format nodes response
+        response = NodesResponse(nodes)
         return jsonify({'nodes': response.nodes})
     except Exception as e:
         return jsonify({'nodes': [], 'error': str(e)})
