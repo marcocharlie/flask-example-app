@@ -10,7 +10,7 @@ app.config['JSON_AS_ASCII'] = False
 app_prefix = '/api'
 
 
-@app.route(app_prefix + '/', methods=['GET'])
+@app.route(app_prefix + '/nodes', methods=['GET'])
 def parse_request():
     try:
         # Validate request
