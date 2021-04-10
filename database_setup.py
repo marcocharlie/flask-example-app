@@ -1,5 +1,6 @@
 from database.database import Database
 
+
 def main():
 
     create_database_query = "CREATE DATABASE IF NOT EXISTS nodes"
@@ -18,6 +19,7 @@ def main():
         idNode integer NOT NULL,
         language varchar(100) NOT NULL,
         nodeName varchar(100) NOT NULL,
+        UNIQUE unique_index(idNode, language),
         FOREIGN KEY (idNode) REFERENCES node_tree (idNode)
     );
     """

@@ -18,5 +18,6 @@ CREATE TABLE IF NOT EXISTS node_tree_names(
     idNode integer NOT NULL,
     language varchar(100) NOT NULL,
     nodeName varchar(100) NOT NULL,
+    UNIQUE unique_index(idNode, language),
     FOREIGN KEY (idNode) REFERENCES node_tree (idNode)
 );
