@@ -3,7 +3,7 @@
 -- flattened as per the Nested Set model.
 
 -- Database
-CREATE DATABASE IF NOT EXISTS nodes
+CREATE DATABASE IF NOT EXISTS nodes;
 
 -- Table node_tree
 CREATE TABLE IF NOT EXISTS node_tree(

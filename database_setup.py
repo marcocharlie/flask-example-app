@@ -3,7 +3,7 @@ from database.database import Database
 
 def main():
 
-    create_database_query = "CREATE DATABASE IF NOT EXISTS nodes"
+    create_database_query = "CREATE DATABASE IF NOT EXISTS nodes;"
 
     create_node_tree_table_query = """
     CREATE TABLE IF NOT EXISTS node_tree(
