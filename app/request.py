@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ParseRequest(object):
+class ValidateNodeRequest(object):
     _node_id = None
     _language = None
     _search_keyword = None
