@@ -1,4 +1,4 @@
-class Response(object):
+class NodesResponse(object):
     def __init__(self, nodes):
         self._set_nodes(nodes)
 
