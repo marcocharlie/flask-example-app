@@ -1,6 +1,7 @@
 # flask-example-app
 
 App providing organizational chart nodes from a mySQL database through a Web API endpoint.
+
 Written in Python 3 using [Flask](https://flask.palletsprojects.com/en/1.1.x/).
 
 ## Usage
@@ -37,7 +38,7 @@ The [examples](https://github.com/marcocharlie/flask-example-app/tree/master/exa
 
 The application is structured as follows:
 
-- An internal app wich contains:
+- A main app wich contains:
     - a Flask HTTP api route providing a JSON response
     - a config file (providing DB access credentials)
     - internal utils doing the dirty work
