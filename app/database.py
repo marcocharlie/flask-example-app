@@ -5,6 +5,8 @@ from config import db_connection_config
 
 class Database():
 
+    connection = None
+
     # Create db connection
     def create_connection(self):
 
