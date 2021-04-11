@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from request import ValidateRequest
 from node_finder import find_nodes
 from response import NodesResponse
-import mysql.connector
 
 
 app = Flask(__name__)
