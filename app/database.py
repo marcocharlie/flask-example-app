@@ -8,6 +8,7 @@ class Database():
     connection = None
 
     # Create db connection
+
     def create_connection(self):
 
         # get connection config
