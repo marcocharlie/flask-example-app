@@ -8,14 +8,7 @@
             "name": "Flask App",
             "type": "python",
             "request": "launch",
-            "program": "api.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Database Setup",
-            "type": "python",
-            "request": "launch",
-            "program": "database_setup.py",
+            "program": "./app/api.py",
             "console": "integratedTerminal"
         }
     ]
