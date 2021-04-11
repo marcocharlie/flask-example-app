@@ -5,6 +5,8 @@
 -- Database
 CREATE DATABASE IF NOT EXISTS nodes;
 
+USE nodes;
+
 -- Table node_tree
 CREATE TABLE IF NOT EXISTS node_tree(
     idNode integer PRIMARY KEY NOT NULL,

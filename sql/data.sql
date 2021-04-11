@@ -1,3 +1,5 @@
+USE nodes;
+
 -- Data node_tree
 insert ignore into node_tree(idNode, level, iLeft, iRight) values
 (1, 2, 2, 3),
