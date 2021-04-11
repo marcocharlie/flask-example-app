@@ -1,56 +1,25 @@
 # flask-example-app
 
-A flask app to retrieve organizational chart nodes from a mySQL database.
-
-## Application structure
-
-The application is structured as follows:
-
-- An internal code which does the dirty work
-- A package for database configuration and querying
-- A setup script for database creation
-- A Flask HTTP api route provides a JSON response
+App providing organizational chart nodes from a mySQL database through a Web API endpoint.
+Written in Python 3 using [Flask](https://flask.palletsprojects.com/en/1.1.x/).
 
 ## Usage
 
 ### Requirements
 
-You can run the application in a Python 3.7 environment.
+- Docker engine version >= 18.06.1
+- Linux / Unix machine w/GNU make installed
 
-To execute the program, you’ll need to have :
-- mySQL installed on your machine
-- a text editor such as Visual Studio Code
+### Run app
 
-**N.B.** You need to insert your mySQL credentials into [config](https://github.com/marcocharlie/flask-example-app/tree/master/database/config.py).
-
-### Python env
-
-Install requirements via PIP
-
+To start the application, run:
 ```bash
-virtualenv .venv
-source .venv/bin/activate
-pip3 install -r requirements.txt
-```
-
-### Database Setup
-
-Create mySql database and tables launching
-```bash
-python3 database_setup.py
-```
-
-### Run App
-
-Execute the application
-
-```bash
-python3 api.py
+make start-app
 ```
 
 ### Available endpoints
 
-The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and returns a list of children nodes from an organizational chart for the given node.
+The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and returns a list of children nodes from an organizational chart for the given node id and language.
 
 #### Parameters:
 
@@ -62,4 +31,14 @@ The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and 
 
 ### Examples
 
-The [examples](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides a REST file as example. It is meant to be used on VSCode REST Client plugin.
+The [examples](https://github.com/marcocharlie/flask-example-app/tree/master/examples) folder provides a REST file as example. It is meant to be used on [VSCode](https://code.visualstudio.com/) [REST Client plugin](https://github.com/Huachao/vscode-restclient).
+
+## Application structure
+
+The application is structured as follows:
+
+- An internal app wich contains:
+    - a Flask HTTP api route providing a JSON response
+    - a config file (providing DB access credentials)
+    - internal utils doing the dirty work
+- A mySQL database setup
