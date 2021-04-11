@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-from app.request import ValidateNodeRequest
-from app.node_finder import find_nodes
-from app.response import NodesResponse
+from request import ValidateRequest
+from node_finder import find_nodes
+from response import NodesResponse
+import mysql.connector
 
 
 app = Flask(__name__)
@@ -13,7 +14,7 @@ app_prefix = '/api'
 def parse_request():
     try:
         # Validate request
-        request_object = ValidateNodeRequest(request.get_json(request.json))
+        request_object = ValidateRequest(request.get_json(request.json))
         # Query on database
         nodes = find_nodes(
             request_object.node_id,
