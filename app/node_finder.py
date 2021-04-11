@@ -10,6 +10,12 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
     # Connect to database
     connection = db.create_connection()
 
+    # Set sql mode in session
+    # This will prevent from the following error:
+    # Error Code: 1055. Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column
+    set_sql_mode = "set session sql_mode='';"
+    db.execute_query(set_sql_mode)
+
     # Query database combining the following queries:
     # - depth on requested subtree children nodes
     # - children count for each parent node
