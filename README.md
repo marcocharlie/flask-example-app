@@ -11,12 +11,22 @@ Written in Python 3 using [Flask](https://flask.palletsprojects.com/en/1.1.x/).
 - Docker engine version >= 18.06.1
 - Linux / Unix machine w/GNU make installed
 
+**N.B.** The commands refer to bash and Make files, so please be sure you have bash installed on your machine and you can use `Make`.
+
 ### Run app
 
 To start the application, run:
 ```bash
 make start-app
 ```
+
+The command will launch the entire infrastructure on your machine (database setup included).
+
+The web server will listen on port 5000.
+
+### Debugging
+
+You can run the debug of the applications by using the Debug panel in VSCode.
 
 ### Available endpoints
 
