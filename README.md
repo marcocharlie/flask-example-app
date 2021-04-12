@@ -30,7 +30,7 @@ You can run the debug of the applications by using the Debug panel in VSCode.
 
 ### Available endpoints
 
-The app offers an HTTP `GET` `/api` endpoint which queries a mySQL database and returns a list of children nodes from an organizational chart for the given node id and language.
+The app offers an HTTP `GET` `/api/nodes` endpoint which queries a mySQL database and returns a list of children nodes from an organizational chart for the given node id and language.
 
 #### Parameters:
 
