@@ -20,7 +20,9 @@ To start the application, run:
 make start-app
 ```
 
-The command will launch the entire infrastructure on your machine (database setup included).
+The command will launch the entire infrastructure on your machine in backgronud (database setup included).
+
+To stop the application just run `make stop-app`.
 
 The web server will listen on port 5000.
 
