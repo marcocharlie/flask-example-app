@@ -4,9 +4,8 @@ EXPOSE 5000
 
 WORKDIR /app
 
-COPY requirements.txt /app
-RUN pip install -r requirements.txt
+COPY . /app
 
-COPY api.py config.py database.py node_finder.py request.py response.py /app/
+RUN pip install -r requirements.txt
 
 CMD python api.py
