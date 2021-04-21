@@ -29,6 +29,7 @@ class Database():
         try:
             cursor.execute(query)
             self.connection.commit()
+            cursor.close()
             print("Query successful")
         except Error as err:
             print(f"Error: '{err}'")
