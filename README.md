@@ -8,10 +8,9 @@ Written in Python 3 using [Flask](https://flask.palletsprojects.com/en/1.1.x/).
 
 ### Requirements
 
-- Docker engine version >= 18.06.1
-- Linux / Unix machine w/GNU make installed
+In order to simplify the execution, a convenient Makefile is provided.
 
-**N.B.** The commands refer to bash and Make files, so please be sure you have bash installed on your machine and you can use `Make`.
+Docker and `make` is all you need to run the application.
 
 ### Run app
 
