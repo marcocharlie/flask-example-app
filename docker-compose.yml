@@ -5,7 +5,7 @@ services:
         ports:
             - "5000:5000"
         container_name: flask-app
-        links: 
+        depends_on:
             - db
         environment:
             FLASK_DEBUG: 'True'
