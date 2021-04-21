@@ -33,9 +33,6 @@ class Database():
     def fetchall(self):
         return self.cursor.fetchall()
 
-    def fetchone(self):
-        return self.cursor.fetchone()
-
     def query(self, sql, params=None):
         self.cursor.execute(sql, params or ())
         print("Query successful")
