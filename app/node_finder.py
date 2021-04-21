@@ -21,7 +21,7 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         SELECT depth_subtree_select.idNode, depth_subtree_select.nodeName, COALESCE (children_counts_select.childrenCount , 0) AS childrenCount
         FROM
         (SELECT node.idNode, (COUNT(parent.idNode) - (sub_tree.depth + 1)) AS depth,
-            (SELECT nodeName FROM node_tree_names WHERE idNode = node.idNode AND language = '%s') AS nodeName
+            (SELECT nodeName FROM node_tree_names WHERE idNode = node.idNode AND language = %s) AS nodeName
         FROM node_tree AS node,
         node_tree AS parent,
         node_tree AS sub_parent,
@@ -49,19 +49,27 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         GROUP BY node.idNode
         ) AS children_counts_select
         ON depth_subtree_select.idNode = children_counts_select.idNode
-        """ % (language, node_id)
+        """
+
+        # initalize query params to prevent SQL injection
+        params = (language.value, node_id)
 
         # Add filter on node name (if provided)
         if search_keyword != None:
             search_keyword = '%'+search_keyword.lower()+'%'
-            query = query+"WHERE nodeName LIKE '%s'" % search_keyword
+            where_filter = "WHERE nodeName LIKE %s"
+            query = query+where_filter
+            params = (*params, search_keyword)
 
         # Use offset and limit for pagination
         limit = page_size
         offset = (limit * (page_num+1)) - limit
-        query = query+"LIMIT %s, %s;" % (offset, limit)
+        pagination = "LIMIT %s, %s;"
+        query = query+pagination
+        params = (*params, offset, limit)
+        print(params)
 
-        field_names, results = db.query(query)
+        field_names, results = db.query(query, params)
 
         if len(results) == 0:
             raise Exception(
