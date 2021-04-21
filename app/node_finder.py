@@ -51,7 +51,8 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         ON depth_subtree_select.idNode = children_counts_select.idNode
         """
 
-        # initalize query params to prevent SQL injection
+        # initalize query params
+        # using tuple in order to prevent SQL injections
         params = (language.value, node_id)
 
         # Add filter on node name (if provided)
