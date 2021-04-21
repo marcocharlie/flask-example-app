@@ -1,49 +1,50 @@
 import mysql.connector
-from mysql.connector import Error
 from config import db_connection_config
 
 
 class Database():
 
-    connection = None
+    def __init__(self):
+        config = self.get_congif()
+        self._conn = mysql.connector.connect(**config)
+        self._cursor = self._conn.cursor()
+        print("MySQL Database connection successful")
 
-    # Create db connection
+    def __enter__(self):
+        return self
 
-    def create_connection(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
 
-        # get connection config
-        config = db_connection_config()
+    def get_congif(self):
+        return db_connection_config()
 
-        try:
-            self.connection = mysql.connector.connect(**config)
-            print("MySQL Database connection successful")
-        except Error as err:
-            print(f"Error: '{err}'")
+    def commit(self):
+        self.connection.commit()
 
-        return self.connection
+    def close(self, commit=True):
+        if commit:
+            self.commit()
+        self.connection.close()
 
-    # Run query on db for creating tables and insert data
+    def execute(self, sql, params=None):
+        self.cursor.execute(sql, params or ())
 
-    def execute_query(self, query):
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute(query)
-            self.connection.commit()
-            cursor.close()
-            print("Query successful")
-        except Error as err:
-            print(f"Error: '{err}'")
+    def fetchall(self):
+        return self.cursor.fetchall()
 
-    # Run query for reading data
+    def fetchone(self):
+        return self.cursor.fetchone()
 
-    def read_query(self, query):
-        cursor = self.connection.cursor()
-        result = None
-        try:
-            cursor.execute(query)
-            field_names = cursor.column_names
-            results = cursor.fetchall()
-            cursor.close()
-            return field_names, results
-        except Error as err:
-            print(f"Error: '{err}'")
+    def query(self, sql, params=None):
+        self.cursor.execute(sql, params or ())
+        print("Query successful")
+        return self.cursor.column_names, self.fetchall()
+
+    @property
+    def connection(self):
+        return self._conn
+
+    @property
+    def cursor(self):
+        return self._cursor
