@@ -56,10 +56,10 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
 
         # Add filter on node name (if provided)
         if search_keyword != None:
-            search_keyword = '%'+search_keyword.lower()+'%'
+            formatted_search_keyword = '%'+search_keyword.lower()+'%'
             where_filter = "WHERE nodeName LIKE %s"
             query = query+where_filter
-            params = (*params, search_keyword)
+            params = (*params, formatted_search_keyword)
 
         # Use offset and limit for pagination
         limit = page_size
@@ -67,7 +67,6 @@ def find_nodes(node_id, language, search_keyword, page_num, page_size):
         pagination = "LIMIT %s, %s;"
         query = query+pagination
         params = (*params, offset, limit)
-        print(params)
 
         field_names, results = db.query(query, params)
 
