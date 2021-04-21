@@ -5,7 +5,7 @@ from config import db_connection_config
 class Database():
 
     def __init__(self):
-        config = self.get_congif()
+        config = db_connection_config()
         self._conn = mysql.connector.connect(**config)
         self._cursor = self._conn.cursor()
         print("MySQL Database connection successful")
@@ -15,9 +15,6 @@ class Database():
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
-
-    def get_congif(self):
-        return db_connection_config()
 
     def commit(self):
         self.connection.commit()
