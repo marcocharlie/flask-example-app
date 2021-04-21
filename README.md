@@ -27,7 +27,7 @@ The web server will listen on port 5000.
 
 ### Debugging
 
-You can run the debug of the applications by using the Debug panel in VSCode.
+You can debug the applications by using the Debug panel in VSCode.
 
 ### Available endpoints
 
